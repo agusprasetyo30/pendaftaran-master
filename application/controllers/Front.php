@@ -32,7 +32,8 @@ class Front extends CI_Controller
             'title' => 'Tutorial Cara Booking',
         );
         $this->template->load('template2','frontend/tentang', $data);
-    }    
+    }
+    
     public function list()
     {
         $data = array(
