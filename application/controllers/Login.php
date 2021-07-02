@@ -49,9 +49,9 @@ class Login extends CI_Controller
                 if($query->active == '1'){
                     $this->session->set_userdata($data);
                     if ($query->id==1) {
-                        redirect(site_url('dashboard'));
+                        redirect(site_url('users'));
                     }else{
-                        redirect(site_url('dashboard'));
+                        redirect(site_url('users'));
                     }
                 }
                 else{

@@ -68,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Brand Logo -->
     <a href="<?php echo site_url('dashboard') ?>" class="brand-link">
       <?php $infoweb=$this->db->get_where('info', array('id_info' => '1'))->row();?>
-      <img src="templateadmin/dist/img/alam.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="<?= base_url() ?>templateadmin/dist/img/alam.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8;width: 33px;height: 33px;">
       <span class="brand-text font-weight-light"><?= $infoweb->nama_web?></span>
     </a>
@@ -79,40 +79,60 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item  ">
+            <li class="nav-item ">
+              <h4 class="nav-header">Admin</h4>
+            </li>
+            <ul class="nav nav-treeview" style="display: block;">
+              <li class="nav-item">
+                <a href="<?= site_url('users') ?>" class="nav-link "><i class="far fa fa-list-alt nav-icon"></i> 
+                <p>User List</p></a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= site_url('pendaftaran') ?>" class="nav-link "><i class="far fa fa-list-alt nav-icon"></i> 
+                <p>Pendaftaran Tujuan 1</p></a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= site_url('pendaftaran2') ?>" class="nav-link "><i class="far fa fa-list-alt nav-icon"></i> 
+                <p>Pendaftaran Tujuan 2</p></a>
+              </li>
+            </ul>
+          </li>
           <?php
             $uris = $this->uri->segment(1);
             $menus = $this->db->get_where('menu', array('link' => $uris))->row();
 
             $menu = $this->db->get_where('view_akses', array('is_parent' => 0,'is_active'=>1,'tipe!='=>'pager','username'=>$this->session->userdata('user_id')));
-            foreach ($menu->result() as $m) {
-                $mlink = explode("/", $m->link);
-                $uris = (count($mlink)>1) ? $this->uri->uri_string() : $this->uri->segment(1) ;
-                $menuaktif = ($uris==$m->link) ? "active ".$uris.'=='.$m->link : "" ;
-                $menuktif = ($menus->is_parent==$m->id) ? "active" : '' ;
-                // chek ada sub menu
-                $submenu = $this->db->get_where('view_auth_child',array('parent'=>$m->name_level,'is_parent'=>$m->id_child,'is_active'=>1));
-                if($submenu->num_rows()>0){
-                    $datas = array();
-                    foreach ($submenu->result() as $s){
-                      $datas[] = $s->link;
-                    }
-                    $subaktif2 = (in_array($uris, $datas)) ? "active" : '' ;
-                    $roleaktf = (in_array($uris, $datas)) ? 'menu-open' : '' ;
-                    // tampilkan submenu
-                    echo "<li class='nav-item has-treeview ".$roleaktf."'>
-                        ".anchor('#',  "<i class='nav-icon fas $m->icon'></i><p>".strtoupper($m->name).'<i class="right fas fa-angle-left"></i></p>',' class="nav-link '.$subaktif2.'" ')."
-                            <ul class='nav nav-treeview'>";
-                    foreach ($submenu->result() as $s){
-                        $subaktif = ($uris==$s->link) ? "active" : '' ;
-                        echo "<li class='nav-item'>" . anchor($s->link, "<i class='far $s->icon nav-icon'></i> <p>" . strtoupper($s->name)."</p>", " class='nav-link ".$subaktif."' ") . "</li>";
-                    }
-                       echo"</ul>
-                        </li>";
-                }else{
-                    echo "<li class='nav-item '>" . anchor($m->link, "<i class='nav-icon $m->icon'></i> <p>" . strtoupper($m->name)."</p>", " class='nav-link ".$menuaktif."' ") . "</li>";
-                }
+            // foreach ($menu->result() as $m) {
+            //     $mlink = explode("/", $m->link);
+            //     $uris = (count($mlink)>1) ? $this->uri->uri_string() : $this->uri->segment(1) ;
+            //     $menuaktif = ($uris==$m->link) ? "active ".$uris.'=='.$m->link : "" ;
+            //     $menuktif = ($menus->is_parent==$m->id) ? "active" : '' ;
+
+            //     // chek ada sub menu
+            //     $submenu = $this->db->get_where('view_auth_child',array('parent'=>$m->name_level,'is_parent'=>$m->id_child,'is_active'=>1));
+            //     if($submenu->num_rows()>0){
+            //         $datas = array();
+            //         foreach ($submenu->result() as $s){
+            //           $datas[] = $s->link;
+            //         }
+            //         $subaktif2 = (in_array($uris, $datas)) ? "active" : '' ;
+            //         $roleaktf = (in_array($uris, $datas)) ? 'menu-open' : '' ;
+            //         // tampilkan submenu
+            //         echo "<li class='nav-item has-treeview ".$roleaktf."'>
+            //             ".anchor('#',  "<i class='nav-icon fas $m->icon'></i><p>".strtoupper($m->name).'<i class="right fas fa-angle-left"></i></p>',' class="nav-link '.$subaktif2.'" ')."
+            //                 <ul class='nav nav-treeview'>";
+            //         foreach ($submenu->result() as $s){
+            //             $subaktif = ($uris==$s->link) ? "active" : '' ;
+            //             echo "<li class='nav-item'>" . anchor($s->link, "<i class='far $s->icon nav-icon'></i> <p>" . strtoupper($s->name)."</p>", " class='nav-link ".$subaktif."' ") . "</li>";
+            //         }
+            //            echo"</ul>
+            //             </li>";
+            //     }else{
+            //         echo "<li class='nav-item '>" . anchor($m->link, "<i class='nav-icon $m->icon'></i> <p>" . strtoupper($m->name)."</p>", " class='nav-link ".$menuaktif."' ") . "</li>";
+            //     }
                 
-            }
+            // }
           ?>
         </ul>
       </nav>

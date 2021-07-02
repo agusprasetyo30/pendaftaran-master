@@ -23,7 +23,11 @@ class Pendaftaran_model extends CI_Model
         $this->datatables->where('tujuan','Tujuan1');
         //add this line for join
         //$this->datatables->join('table2', 'pendaftaran.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('pendaftaran/read/$1'),'Read')." | ".anchor(site_url('pendaftaran/update/$1'),'Update')." | ".anchor(site_url('pendaftaran/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_daftar');
+        $this->datatables->add_column('action', 
+            anchor(site_url('pendaftaran/read/$1'),'<a href='. site_url('pendaftaran/read/$1') .' class="btn btn-sm btn-warning">Read</a>') . 
+            anchor(site_url('pendaftaran/update/$1'),'<a href='. site_url('pendaftaran/update/$1') .' class="btn btn-sm btn-primary">Update</a>') .
+            anchor(site_url('pendaftaran/delete/$1'),'<a href='. site_url('pendaftaran/delete/$1') .' class="btn btn-sm btn-danger">Delete</a>'), 'kode_daftar');
+        
         return $this->datatables->generate();
     }
     function json2() {
@@ -32,7 +36,11 @@ class Pendaftaran_model extends CI_Model
         $this->datatables->where('tujuan','Tujuan2');
         //add this line for join
         //$this->datatables->join('table2', 'pendaftaran.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('pendaftaran/read/$1'),'Read')." | ".anchor(site_url('pendaftaran/update/$1'),'Update')." | ".anchor(site_url('pendaftaran/delete/$1'),'Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'kode_daftar');
+        $this->datatables->add_column('action', 
+            anchor(site_url('pendaftaran/read/$1'),'<a href='. site_url('pendaftaran/read/$1') .' class="btn btn-sm btn-warning">Read</a>') . 
+            anchor(site_url('pendaftaran/update/$1'),'<a href='. site_url('pendaftaran/update/$1') .' class="btn btn-sm btn-primary">Update</a>') .
+            anchor(site_url('pendaftaran/delete/$1'),'<a href='. site_url('pendaftaran/delete/$1') .' class="btn btn-sm btn-danger">Delete</a>'), 'kode_daftar');
+
         return $this->datatables->generate();
     }
 
